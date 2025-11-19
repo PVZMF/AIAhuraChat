@@ -19,8 +19,7 @@ It demonstrates a real-time chat interface with both a mock API and a live OpenR
 
 ## Demo
 
-![Chatbot Screenshot](./screenshot.png)  
-_(Optional: add a screenshot of your chatbot)_
+![Chatbot Screenshot](./public/Screenshot%202025-11-19%20at%203.24.16 PM.png)
 
 ---
 
@@ -51,9 +50,9 @@ Open http://localhost:3000
 Create a .env.local file at the root of the project and add your OpenRouter API key:
 OPENROUTER_API_KEY=your_api_key_here
 
+```
 
 Usage
-
 
 Switch API mode: Use the button in the chat header to toggle between mock chat (/api/chatMock) and real chat (/api/chat).
 
@@ -63,77 +62,42 @@ Send a message: Type in the input field and press Enter or click the send button
 
 Typing indicator: Shows animated dots while the assistant is “typing”.
 
-
 Auto-resize input: Input grows up to 8 rows; after that it scrolls.
-
-
 
 Technologies
 
 
 Next.js 13
-
-
 React
-
-
 Tailwind CSS
-
-
 Lucide Icons
-
-
 OpenRouter API
-
-
 LangChain (for backend LLM integration)
-
-
-
 Project Structure
 
 
 app/ – Next.js app routes and pages.
 
-
 components/ – React components including the chatbot widget.
-
 
 lib/ – Utility functions (cn, etc.).
 
-
 app/api/chat/ – API endpoint for real OpenRouter chat.
-
 
 app/api/chatMock/ – API endpoint for mock chat responses.
 
-
-
 Learn More
-
 
 Next.js Documentation
 
-
 Tailwind CSS Documentation
-
 
 LangChain Documentation
 
-
 OpenRouter API Docs
-
-
 
 Deploy
 You can deploy the project easily on Vercel:
 vercel
 
 Check Next.js Deployment Documentation for more details.
-
----
-
-If you want, I can also make a **more “employer-focused” version** that emphasizes this project as a test, highlights your skills, and makes your README stand out in a recruitment context.
-
-Do you want me to do that too?
-```

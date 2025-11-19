@@ -1,42 +1,139 @@
 # AIAhuraChat
-This is a test of chatbot for green web company.
 
+This is a chatbot project developed as a **technical test for Green Web Company**.  
+It demonstrates a real-time chat interface with both a mock API and a live OpenRouter-powered backend.
 
+---
 
+## Features
+
+- Real-time chat with user and assistant messages.
+- Two API modes: **mock chat** and **real OpenRouter chat**.
+- Automatic scrolling and typing indicators.
+- Responsive design with RTL support.
+- Multi-line input with auto-resize up to 8 rows.
+- Theme toggle (light/dark mode).
+- Custom animated loading indicator.
+
+---
+
+## Demo
+
+![Chatbot Screenshot](./screenshot.png)  
+_(Optional: add a screenshot of your chatbot)_
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 18
+- npm / yarn / pnpm / bun
+- OpenRouter API key (if using real chat)
+
+### Installation
 
 ```bash
-npm run dev
+# Install dependencies
+npm install
 # or
-yarn dev
+yarn
 # or
-pnpm dev
-# or
-bun dev
+pnpm install
+
+
+Open http://localhost:3000
+ in your browser to see the chatbot in action.
+
+
+ Environment Variables
+Create a .env.local file at the root of the project and add your OpenRouter API key:
+OPENROUTER_API_KEY=your_api_key_here
+
+
+Usage
+
+
+Switch API mode: Use the button in the chat header to toggle between mock chat (/api/chatMock) and real chat (/api/chat).
+
+
+Send a message: Type in the input field and press Enter or click the send button.
+
+
+Typing indicator: Shows animated dots while the assistant is “typing”.
+
+
+Auto-resize input: Input grows up to 8 rows; after that it scrolls.
+
+
+
+Technologies
+
+
+Next.js 13
+
+
+React
+
+
+Tailwind CSS
+
+
+Lucide Icons
+
+
+OpenRouter API
+
+
+LangChain (for backend LLM integration)
+
+
+
+Project Structure
+
+
+app/ – Next.js app routes and pages.
+
+
+components/ – React components including the chatbot widget.
+
+
+lib/ – Utility functions (cn, etc.).
+
+
+app/api/chat/ – API endpoint for real OpenRouter chat.
+
+
+app/api/chatMock/ – API endpoint for mock chat responses.
+
+
+
+Learn More
+
+
+Next.js Documentation
+
+
+Tailwind CSS Documentation
+
+
+LangChain Documentation
+
+
+OpenRouter API Docs
+
+
+
+Deploy
+You can deploy the project easily on Vercel:
+vercel
+
+Check Next.js Deployment Documentation for more details.
+
+---
+
+If you want, I can also make a **more “employer-focused” version** that emphasizes this project as a test, highlights your skills, and makes your README stand out in a recruitment context.
+
+Do you want me to do that too?
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-

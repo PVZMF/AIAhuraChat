@@ -150,3 +150,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes bounce-dot {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.three-dot {
+  display: flex;
+  gap: 0.25rem; /* like Tailwind gap-1 */
+}
+
+.three-dot div {
+  width: 0.5rem;  /* w-2 */
+  height: 0.5rem; /* h-2 */
+  background-color: rgba(0,0,0,0.4); /* bg-foreground/40 */
+  border-radius: 9999px; /* rounded-full */
+  animation: bounce-dot 1.4s infinite ease-in-out both;
+}
+
+.three-dot div:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.three-dot div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.three-dot div:nth-child(3) {
+  animation-delay: 0.4s;
+}

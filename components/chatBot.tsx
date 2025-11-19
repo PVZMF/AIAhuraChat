@@ -1,9 +1,9 @@
 "use client"
-import { Bot, Moon, Send, Sun } from "lucide-react";
+import { Bot, MessageCircleMore, MessageSquareMore, Send } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { cn } from '@/lib/utils'
 import ThemeToggle from "./themeToggle";
-
+import ThreePoint from "./progress/threePoint";
 
 interface Message {
     id: string
@@ -15,7 +15,6 @@ export default function ChatbotWidget() {
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState('')
     const [isTyping, setIsTyping] = useState(false)
-    const [isDark, setIsDark] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
     const chatContainerRef = useRef<HTMLDivElement>(null)
 
@@ -28,12 +27,6 @@ export default function ChatbotWidget() {
                 ...msg,
                 timestamp: new Date(msg.timestamp)
             })))
-        }
-
-        const darkMode = localStorage.getItem('darkMode') === 'true'
-        setIsDark(darkMode)
-        if (darkMode) {
-            document.documentElement.classList.add('dark')
         }
     }, [])
 
@@ -138,15 +131,15 @@ export default function ChatbotWidget() {
 
     return (
         <div dir="rtl" className="flex items-center justify-center p-4">
-            <div className="w-full max-w-4xl h-[90vh] bg-chat-container-bg backdrop-blur-lg rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-chat-message-border">
-                <div className="bg-linear-to-r from-chat-header-from to-chat-header-to p-6 flex items-center justify-between">
-                    <div className="flex items-center justify-center gap-4">
-                        <div className=" size-14 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-white shadow-md">
+            <div className="w-full max-w-6xl h-[90vh] bg-chat-container-bg backdrop-blur-lg rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-chat-message-border">
+                <div className="bg-linear-to-r from-chat-header-from to-chat-header-to py-4 px-2 lg:px-4 flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
+                        <div className=" size-12 rounded-full bg-white/30 dark:bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-white shadow-md">
                             <Bot />
                         </div>
                         <div>
-                            <h1 className="text-white text-xl font-bold">دستیار هوشمند</h1>
-                            <p className="text-white/80 text-sm">آنلاین و آماده پاسخگویی</p>
+                            <h1 className="text-white text-lg lg:text-xl font-bold">دستیار هوشمند</h1>
+                            <p className="text-white/80 text-xs lg:text-sm">آنلاین و آماده پاسخگویی</p>
                         </div>
                     </div>
                     <ThemeToggle />
@@ -158,14 +151,16 @@ export default function ChatbotWidget() {
                     dir="ltr"
                     className="flex-1 overflow-y-auto p-6 space-y-4"
                 >
-                    <div className="space-y-4">
+                    <div className="space-y-4 h-full ">
                         {messages.length === 0 ? (
                             <div className="h-full flex flex-col items-center justify-center text-center">
-                                <div className="text-6xl mb-4">💬</div>
-                                <h2 className="text-2xl font-bold text-foreground mb-2">
+                                <div className="text-6xl mb-4">
+                                    <MessageSquareMore size={40} />
+                                </div>
+                                <h2 className=" text-base lg:text-lg font-bold text-foreground mb-2">
                                     سلام! چطور می‌تونم کمکتون کنم؟
                                 </h2>
-                                <p className="text-muted-foreground">
+                                <p className="text-muted-foreground text-sm lg:text-base">
                                     پیام خود را بنویسید تا گفتگو را شروع کنیم
                                 </p>
                             </div>
@@ -204,17 +199,11 @@ export default function ChatbotWidget() {
                                     </div>
                                 ))}
                                 {isTyping && (
-                                    <div className="flex gap-3 items-start justify-start">
+                                    <div className="flex gap-3 items-start justify-start h-20">
                                         <div className="w-8 h-8 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-sm">
                                             🤖
                                         </div>
-                                        <div className="bg-chat-bot-message-bg px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm border border-chat-message-border">
-                                            <div className="flex gap-1">
-                                                <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                                <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                                <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                                            </div>
-                                        </div>
+                                        <ThreePoint />
                                     </div>
                                 )}
                                 <div ref={messagesEndRef} />
@@ -223,7 +212,7 @@ export default function ChatbotWidget() {
                     </div>
                 </div>
 
-                <div className="border-t bg-card/50 dark:backdrop-blur-sm">
+                <div className="border-t bg-card/50 dark:backdrop-blur-sm mt-2">
                     <div className="border-t dark:border-border bg-card/50 dark:backdrop-blur-sm p-2">
                         <div className="flex gap-2 items-end">
                             <div className="flex-1 relative">
@@ -248,7 +237,7 @@ export default function ChatbotWidget() {
                                 title="ارسال پیام"
                                 onClick={sendMessage}
                                 disabled={!input.trim() || isTyping}
-                                className="rounded-2xl mb-2 bg-linear-to-r from-chat-user-message-from to-chat-user-message-to hover:opacity-90 text-white px-3 py-3 shadow-lg disabled:opacity-50"
+                                className="rounded-2xl mb-2.5 bg-linear-to-r from-chat-user-message-from to-chat-user-message-to hover:opacity-90 text-white px-3 py-3 shadow-lg disabled:opacity-50"
                             >
                                 <Send className="w-5 h-5" />
                             </button>

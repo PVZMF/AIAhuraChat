@@ -1,11 +1,10 @@
-// app/layout.tsx
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../style/globals.css";
 import { Vazirmatn } from 'next/font/google'
 import ThemeProviderWrapper from "@/components/providers/theme-provider";
 
 
-const vazirmatn = Vazirmatn({ 
+const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
   display: 'swap',
 })

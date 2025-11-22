@@ -123,17 +123,22 @@ export default function ChatbotWidget() {
 
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent) => {
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
+            const el = e.currentTarget;
+            setTimeout(() => {
+                el.style.height = "auto";
+                el.style.height = `${Math.min(el.scrollHeight, 8 * 24)}px`;
+            }, 0);
         }
     };
 
     const formatTime = (date: Date) => new Intl.DateTimeFormat("fa-IR", { hour: "2-digit", minute: "2-digit" }).format(date);
 
     return (
-        <div dir="rtl" className="flex flex-col items-center justify-center p-4 gap-2">
+        <div className="flex flex-col items-center justify-center p-4 gap-2">
             {/* API selector */}
             <div className="flex gap-2 mb-2">
                 <button
@@ -167,7 +172,7 @@ export default function ChatbotWidget() {
                 </div>
 
                 {/* Messages */}
-                <div ref={chatContainerRef} dir="ltr" className="flex-1 overflow-y-auto p-6 space-y-4">
+                <div ref={chatContainerRef} dir="rtl" className="flex-1 overflow-y-auto p-6 space-y-4">
                     {messages.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-center">
                             <MessageSquareMore size={40} className="text-6xl mb-4" />
@@ -177,24 +182,28 @@ export default function ChatbotWidget() {
                     ) : (
                         <>
                             {messages.map(msg => (
-                                <div key={msg.id} className={cn("flex gap-3 items-start", msg.role === "user" ? "justify-end" : "justify-start")}>
-                                    {msg.role === "assistant" && <div className="w-4 h-4 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-sm">🤖</div>}
-                                    <div className={cn("flex flex-col gap-1 max-w-[70%]", msg.role === "user" ? "items-end" : "items-start")}>
+                                <div key={msg.id} className={cn("flex gap-3 items-start", msg.role === "user" ? "justify-start" : "justify-end")}>
+                                    <div className={cn("flex flex-col gap-1 max-w-[70%]", msg.role === "user" ? "items-start" : "items-end")}>
                                         <div className={cn(
                                             "px-4 py-3 rounded-2xl shadow-sm",
                                             msg.role === "assistant"
                                                 ? "bg-linear-to-br from-chat-user-message-from to-chat-user-message-to text-white rounded-tl-xs"
                                                 : "bg-chat-bot-message-bg text-chat-bot-message-text rounded-tr-xs border border-chat-message-border"
                                         )}>
-                                            <p className="text-sm leading-relaxed wrap-break-word">{msg.content}</p>
+                                            <p className="text-sm leading-relaxed wrap-break-word  ">{msg.content}</p>
                                         </div>
                                         <span className="text-xs text-muted-foreground px-2">{formatTime(msg.timestamp)}</span>
                                     </div>
+                                    {msg.role === "assistant" && <div className="w-4 h-4 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-sm">
+                                        🤖
+                                    </div>}
                                 </div>
                             ))}
                             {isTyping && apiEndpoint === "chatMock" && (
                                 <div className="flex gap-3 items-start justify-start h-20">
-                                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-sm">🤖</div>
+                                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-chat-bot-avatar-from to-chat-bot-avatar-to flex items-center justify-center text-sm">
+                                        🤖
+                                    </div>
                                     <ThreePoint />
                                 </div>
                             )}
@@ -215,7 +224,7 @@ export default function ChatbotWidget() {
                                     el.style.height = "auto";
                                     el.style.height = `${Math.min(el.scrollHeight, 8 * 24)}px`;
                                 }}
-                                onKeyPress={handleKeyPress}
+                                onKeyDown={handleKeyPress}
                                 aria-label="پیام خود را بنویسید"
                                 rows={3}
                                 className="w-full rounded-2xl bg-chat-input-bg text-right pr-4 pl-4 py-2 resize-none overflow-auto max-h-[calc(1.5rem*8+1rem)] border-0 focus:ring-0 focus:outline-none text-foreground placeholder:text-muted-foreground dark:shadow-inner"
